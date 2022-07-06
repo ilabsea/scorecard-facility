@@ -1,0 +1,7 @@
+%div
+  = t('shared.are_you_sure_to_delete', type: t('facility.facility'), name: @facility.name).html_safe
+
+.d-flex.justify-content-end.mt-3
+  %button.btn.btn-secondary.me-1{type: 'button', 'data-bs-dismiss': 'modal'}= t('shared.cancel')
+
+  = button_to t('shared.yes_delete'), facility, method: :delete, data: {action: "click->facilities#delete"}, class: 'btn btn-danger'
