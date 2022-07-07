@@ -1,8 +1,13 @@
 .btn-circle {
   border-radius: 100%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.actions {
+.actions, .form-actions {
   margin-top: 30px;
   display: flex;
   justify-content: flex-end;
@@ -10,4 +15,11 @@
 
 .view-center {
   margin: 0 auto;
+}
+
+.notify-message {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 1040;
 }
