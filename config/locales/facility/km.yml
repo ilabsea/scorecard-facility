@@ -1,0 +1,11 @@
+km:
+  facility:
+    facility: Facility
+    facilities: Facilities
+    abbreviation: អក្សរកាត់
+    name: ឈ្មោះ
+    name_en: ឈ្មោះជាភាសារអង់គ្លេស
+    name_km: ឈ្មោះជាភាសារខ្មែរ
+    abbr_en: អក្សរកាត់ជាភាសារអង់គ្លេស
+    abbr_km: អក្សរកាត់ជាភាសារខ្មែរ
+    parent: យូនីត

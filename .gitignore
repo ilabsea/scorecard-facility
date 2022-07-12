@@ -68,3 +68,5 @@ yarn-debug.log*
 
 # dotenv
 app.env
+
+.DS_Store

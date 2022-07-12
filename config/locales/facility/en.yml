@@ -1,0 +1,11 @@
+en:
+  facility:
+    facility: Facility
+    facilities: Facilities
+    abbreviation: Abbreviation
+    name: Name
+    name_en: Name in English
+    name_km: Name in Khmer
+    abbr_en: Abbreviation in English
+    abbr_km: Abbreviation in Khmer
+    parent: unit

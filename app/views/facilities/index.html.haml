@@ -1,0 +1,29 @@
+.container-fluid.px-4.facilities{'data-controller': "facilities"}
+  %h1.mt-4 Facilities
+
+  .d-flex
+    %ol.breadcrumb.mb-4.flex-grow-1
+      %li.breadcrumb-item.active Facilities
+
+    = render "shared/add_new_button", url: new_facility_path, name: t("facility.facility")
+
+  .card.mb-4.pretty
+    = render "shared/no_data", items: @facilities
+
+    - if @facilities.present?
+      .d-flex.facility-header
+        %strong.name= sortable "name_#{I18n.locale}", t("facility.name")
+        %strong.w-25= t("facility.abbreviation")
+        %strong.flex-grow-1= t("shared.created_at")
+
+      - @facilities.each do |facility|
+        = render 'facility', facility: facility
+
+        - facility.children.each do |child|
+          = render 'facility', facility: child
+
+    - if @pagy.pages > 1
+      .pagy-wrapper.justify-content-lg-end.justify-content-center
+        != pagy_bootstrap_nav(@pagy)
+
+  = turbo_frame_tag "remote_modal", target: "_top"
