@@ -1,0 +1,50 @@
+.container-fluid.px-4.facilities{'data-controller': "users"}
+  = render 'shared/header_title', title: t('user.users')
+
+  .d-flex.justify-content-end
+    = render "shared/buttons/add_new_button", url: new_user_path, name: t("user.user")
+
+  %ul.nav.nav-tabs
+    %li.nav-item
+      %a.nav-link{ href: users_path, class: ('active' if params[:archived].blank?) }= t("user.all")
+
+    %li.nav-item
+      %a.nav-link{href: users_path(archived: true), class: ('active' if params[:archived].present?)}= t("user.archived")
+
+  .mb-4.pretty
+    = render "shared/no_data", items: @users
+
+    - if @users.present?
+      .table-responsive
+        %table.table.table-hover.pretty
+          %thead
+            %tr
+              %th #
+              %th= sortable "email", t("user.email")
+              %th= t('user.status')
+              %th= t('user.role')
+              %th= t('shared.created_at')
+              %th= t('shared.updated_at')
+              %th= t('user.last_sign_in_at')
+              %th
+
+          %tbody
+            - @users.each_with_index do |user, index|
+              %tr{class: ("disabled-bg" unless user.actived?)}
+                %td= @pagy.from + index
+                %td= user.email
+                %td= user.role.try(:titlecase)
+                %td.status{ class: user.status }
+                  = t("user.#{user.status}")
+                %td= timeago(user.created_at).html_safe
+                %td= timeago(user.updated_at).html_safe
+                %td= timeago(user.last_sign_in_at).html_safe
+                %td
+                  .d-flex.align-items-end
+                    = render 'action_buttons', user: user
+
+      - if @pagy.pages > 1
+        .pagy-wrapper.justify-content-lg-end.justify-content-center
+          != pagy_bootstrap_compact_nav(@pagy)
+
+  = turbo_frame_tag "remote_modal", target: "_top"

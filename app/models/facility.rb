@@ -8,10 +8,10 @@
 #  abbr_en        :string
 #  abbr_km        :string
 #  parent_id      :string
-#  lft            :integer
-#  rgt            :integer
-#  depth          :integer          default(0)
-#  children_count :integer          default(0)
+#  lft            :integer          not null
+#  rgt            :integer          not null
+#  depth          :integer          default(0), not null
+#  children_count :integer          default(0), not null
 #  dataset        :string
 #  default        :boolean          default(FALSE)
 #  created_at     :datetime         not null
@@ -34,6 +34,10 @@ class Facility < ApplicationRecord
 
   def abbreviation
     self["abbr_#{I18n.locale}"]
+  end
+
+  def locked?
+    self.default?
   end
 
   private

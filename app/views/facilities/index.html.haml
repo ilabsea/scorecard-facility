@@ -1,11 +1,8 @@
 .container-fluid.px-4.facilities{'data-controller': "facilities"}
-  %h1.mt-4 Facilities
+  = render 'shared/header_title', title: t('facility.facilities')
 
-  .d-flex
-    %ol.breadcrumb.mb-4.flex-grow-1
-      %li.breadcrumb-item.active Facilities
-
-    = render "shared/add_new_button", url: new_facility_path, name: t("facility.facility")
+  .d-flex.justify-content-end.mb-2
+    = render "shared/buttons/add_new_button", url: new_facility_path, name: t("facility.facility")
 
   .card.mb-4.pretty
     = render "shared/no_data", items: @facilities
