@@ -15,3 +15,7 @@ en:
     are_you_sure_to_delete: Are you sure to delete the %{type} <b>%{name}</b>?
     yes_delete: Yes, Delete!
     confirm_delete: Confirm delete %{name}
+    restore: Restore
+    archive: Archive
+    activate: Activate
+    deactivate: Deactivate

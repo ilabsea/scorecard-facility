@@ -15,3 +15,7 @@ km:
     are_you_sure_to_delete: តើអ្នកប្រាកដជាលុប%{type} <b>%{name}</b> នេះមែនទេ?
     yes_delete: បាទ/ចាស, លុប!
     confirm_delete: បញ្ជាក់ការលុបការ %{name}
+    restore: ស្តារឡើងវិញ
+    archive: Archive
+    activate: បើកដំណើរការគណនី
+    deactivate: បិទដំណើរការគណនី
