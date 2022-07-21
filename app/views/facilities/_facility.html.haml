@@ -7,11 +7,10 @@
   .flex-grow-1
     = timeago(facility.created_at).html_safe
 
-
-  = link_to edit_facility_path(facility), class: "btn btn-circle btn-sm btn-outline-warning me-1", data: { toggle: 'tooltip', placement: 'top', title: t('shared.edit') } do
+  = link_to edit_facility_path(facility), class: "btn btn-circle btn-sm btn-outline-warning me-1", data: { 'bs-toggle': 'tooltip', 'bs-placement': 'top' }, title: t('shared.edit') do
     %i.fas.fa-pencil
 
   - title = facility.locked? ? t('facility.already_in_used') : t('shared.delete')
-  %span{ data: { toggle: 'tooltip', placement: 'top', title: title }}
+  %span{ data: { 'bs-toggle': 'tooltip', 'bs-placement': 'top' }, title: title }
     = link_to facility_path(facility), class: ["btn btn-circle btn-sm btn-outline-danger", ("disabled" unless policy(facility).destroy?)], data: { turbo_frame: "remote_modal" }  do
       %i.fas.fa-trash-alt

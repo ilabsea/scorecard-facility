@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
   private
     def set_locale
-      I18n.locale = current_user.try(:language_code) || I18n.default_locale
+      I18n.locale = current_user.try(:locale).presence || I18n.default_locale
     end
 
     def set_layout

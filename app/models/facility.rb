@@ -44,9 +44,9 @@ class Facility < ApplicationRecord
     def secure_id
       self.id ||= SecureRandom.uuid[0..5]
 
-      return unless self.class.exists?(id: id)
+      return unless self.class.exists?(id:)
 
-      self.id = SecureRandom.id
+      self.id = SecureRandom.uuid[0..5]
       secure_id
     end
 

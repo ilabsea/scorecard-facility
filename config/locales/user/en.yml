@@ -16,3 +16,5 @@ en:
     restore_successfully: "User %{email} is restored successfully!"
     resend_confirmation: Resend confirmation
     resend_confirmation_successfully: Resend the confirmation successfully!
+    locale_km: ខ្មែរ
+    locale_en: English
