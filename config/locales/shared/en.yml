@@ -19,3 +19,5 @@ en:
     archive: Archive
     activate: Activate
     deactivate: Deactivate
+    code: Code
+    name: Name
