@@ -3,7 +3,7 @@ class FacilitiesController < ApplicationController
 
   # GET /facilities or /facilities.json
   def index
-    @pagy, @facilities = pagy(Facility.roots.reorder(sort_column + " " + sort_direction).includes(:children))
+    @pagy, @facilities = pagy(authorize Facility.roots.reorder(sort_column + " " + sort_direction).includes(:children))
   end
 
   # GET /facilities/1 or /facilities/1.json
@@ -12,7 +12,7 @@ class FacilitiesController < ApplicationController
 
   # GET /facilities/new
   def new
-    @facility = Facility.new
+    @facility = authorize Facility.new
   end
 
   # GET /facilities/1/edit
@@ -21,7 +21,7 @@ class FacilitiesController < ApplicationController
 
   # POST /facilities or /facilities.json
   def create
-    @facility = Facility.new(facility_params)
+    @facility = authorize Facility.new(facility_params)
 
     respond_to do |format|
       if @facility.save
@@ -61,7 +61,7 @@ class FacilitiesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_facility
-      @facility = Facility.find(params[:id])
+      @facility = authorize Facility.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
