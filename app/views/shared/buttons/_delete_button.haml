@@ -1,0 +1,4 @@
+- if policy(object).destroy?
+  %span{ data: { 'bs-toggle': 'tooltip', 'bs-placement': 'top' }, title: t('shared.delete') }
+    = link_to show_url, class: "btn btn-circle btn-sm btn-outline-danger", data: { turbo_frame: "remote_modal" }  do
+      %i.fas.fa-trash-alt

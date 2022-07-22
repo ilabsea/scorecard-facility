@@ -1,0 +1,7 @@
+abbr_en,abbr_km,name_en,name_km,parent_abbr_en,default,dataset
+PA,រធ,Public Administration,រដ្ឋបាលសាធារណៈ,,true,
+CA,រឃ,Commune Administrative,រដ្ឋបាលឃុំសង្កាត់,PA,true,
+ED,អប,Education,ការអប់រំ,,true,
+PS,បឋ,Primary School,បឋមសិក្សា,ED,true,ps
+HE,សខ,Health,សុខភាព,,true,
+HC,មណ,Health Center,មណ្ឌលសុខភាព,HE,true,

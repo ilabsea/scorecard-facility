@@ -1,0 +1,38 @@
+.container-fluid.px-4.facilities{'data-controller': "languages"}
+  = render 'shared/header_title', title: t('language.languages')
+
+  .d-flex.justify-content-end
+    = render "shared/buttons/add_new_button", url: new_language_path, name: t("language.language")
+
+  .mb-4.pretty
+    = render "shared/no_data", items: @languages
+
+    - if @languages.present?
+      .table-responsive
+        %table.table.table-hover.pretty
+          %thead
+            %tr
+              %th #
+              %th= t('shared.code')
+              %th= t('shared.name')
+              %th= t('shared.created_at')
+              %th= t('shared.updated_at')
+              %th
+
+          %tbody
+            - @languages.each_with_index do |language, index|
+              %tr
+                %td= @pagy.from + index
+                %td= language.code
+                %td= language.name
+                %td= timeago(language.created_at).html_safe
+                %td= timeago(language.updated_at).html_safe
+                %td.d-flex.justify-content-end
+                  = render 'shared/buttons/edit_button', object: language, url: edit_language_path(language)
+                  = render 'shared/buttons/delete_button', object: language, show_url: language_path(language)
+
+      - if @pagy.pages > 1
+        .pagy-wrapper.justify-content-lg-end.justify-content-center
+          != pagy_bootstrap_compact_nav(@pagy)
+
+  = turbo_frame_tag "remote_modal", target: "_top"
