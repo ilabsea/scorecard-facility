@@ -20,6 +20,8 @@
 class Facility < ApplicationRecord
   acts_as_nested_set
 
+  has_many :indicators
+
   validates :name_en, presence: true, uniqueness: true
   validates :name_km, presence: true, uniqueness: true
   validates :abbr_en, presence: true, uniqueness: true
@@ -27,6 +29,8 @@ class Facility < ApplicationRecord
 
   before_create :secure_id
   before_validation :secure_parent_id
+
+  scope :only_children, -> { where.not(parent_id: nil) }
 
   def name
     self["name_#{I18n.locale}"]
@@ -41,15 +45,6 @@ class Facility < ApplicationRecord
   end
 
   private
-    def secure_id
-      self.id ||= SecureRandom.uuid[0..5]
-
-      return unless self.class.exists?(id:)
-
-      self.id = SecureRandom.uuid[0..5]
-      secure_id
-    end
-
     def secure_parent_id
       self.parent_id = parent_id.presence
     end

@@ -1,0 +1,34 @@
+- error_name = f.object.errors[:name]
+- error_audio = f.object.errors[:audio]
+
+.d-flex.mb-2{ 'data-controller': 'indicators', class: ('file-selected' if error_audio.blank? && f.object.audio_identifier.present? )}
+  .w-25
+    / Display language
+    %label= language.name
+    = f.hidden_field :language_id, value: language.id
+    = f.hidden_field :language_code, value: language.code
+
+  .d-flex.w-75.audio-wrapper
+    .w-50{class: ('form-group-invalid' if error_name.present?)}
+      / Name in language
+      = f.text_field :name, class: ['form-control', ('is-invalid' if error_name.present?)]
+      .invalid-feedback= error_name.join('; ')
+
+    .w-50.ps-2{class: ('form-group-invalid' if error_audio.present?)}
+      / Input File
+      .mb-2.file-control-wrapper
+        = f.file_field :audio, class: ['audio-input form-control', ('is-invalid' if error_audio.present?)], accept: ".mp3,audio/*", 'data-action': 'indicators#selectFile', 'data-indicators-target': 'audio'
+
+      .invalid-feedback= error_audio.join('; ')
+
+      / Display file name
+      .remove-audio-wrapper
+        .d-flex.align-items-center
+          = f.hidden_field :remove_audio, class: 'audio-input-destroy', 'data-indicators-target' => 'inputRemove'
+
+          / Remove file button
+          %a.remove-audio.text-danger.me-2.pointer{'data-action': 'indicators#removeAudio'}
+            %i.far.fa-trash-alt
+
+          = link_to f.object.audio_url, target: "_blank", class: 'btn btn-link p-0 d-block text-truncate', 'data-indicators-target': 'displayName' do
+            = f.object.audio_identifier

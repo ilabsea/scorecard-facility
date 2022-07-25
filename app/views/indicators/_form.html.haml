@@ -1,0 +1,20 @@
+.w-50.view-center.indicators-form
+  = simple_form_for([@facility, @indicator]) do |f|
+    = f.error_notification
+    = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+    .form-inputs
+      .form-group.mb-3
+        %label= t('indicator.facility')
+        .form-control= @facility.name
+
+      .mb-3= f.input :name, label: t('shared.name')
+
+    - Language.all.each do |lang|
+      - obj = @indicator.language_indicators.select{ |a| a.language_id == lang.id }.first || f.object.language_indicators.new
+
+      = f.fields_for :language_indicators, obj do |builder|
+        = render 'language_indicator_field', f: builder, language: lang
+
+    .form-actions
+      = render "shared/buttons/submit_buttons", f: f, cancel_url: facility_indicators_path(@facility)

@@ -1,0 +1,12 @@
+en:
+  indicator:
+    indicator: Indicator
+    indicators: Indicators
+    new_indicator: New Indicator
+    edit_indicator: Edit Indicator
+    facility: Facility
+    type: Type
+    endpoint: Endpoint
+    standard_indicator: Standard Indicator
+    name_or_code: Name or code
+    language_count: "# of languages"

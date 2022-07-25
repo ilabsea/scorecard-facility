@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe LanguagePolicy, type: :policy do
+RSpec.describe IndicatorPolicy, type: :policy do
   let(:user) { User.new }
 
   subject { described_class }

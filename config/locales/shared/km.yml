@@ -9,7 +9,7 @@ km:
     back: ត្រលប់ក្រោយ
     done: រួចរាល់
     reset: កំណត់ឡើងវិញ
-    add_new: បន្ថែម %{name} ថ្មី
+    add_new: បន្ថែម%{name}ថ្មី
     created_at: កាលបរិច្ឆេទបង្កើត
     updated_at: កាលបរិច្ឆេទធ្វើបច្ចុប្បន្នភាព
     are_you_sure_to_delete: តើអ្នកប្រាកដជាលុប%{type} <b>%{name}</b> នេះមែនទេ?
@@ -21,3 +21,5 @@ km:
     deactivate: បិទដំណើរការគណនី
     code: លេខកូដ
     name: ឈ្មោះ
+    pagination_title: "បង្ហាញទិន្ន័យ <b>%{from}</b> - <b>%{to}</b> នៃចំនួនសរុប <b>%{total}</b>"
+    all: ទាំងអស់

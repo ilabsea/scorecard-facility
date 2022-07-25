@@ -1,0 +1,8 @@
+= render "shared/modals/remote_modal", title: t('shared.confirm_delete', name: t('indicator.indicator')) do
+
+  %div
+    = t('shared.are_you_sure_to_delete', type: t('indicator.indicator'), name: @indicator.name).html_safe
+
+  .d-flex.justify-content-end.mt-3
+    = render "shared/buttons/modal_cancel_button"
+    = render "shared/buttons/modal_delete_button", url: facility_indicator_path(@facility, @indicator)

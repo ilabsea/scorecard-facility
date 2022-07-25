@@ -1,0 +1,15 @@
+%ul.nav.nav-tabs
+  %li.nav-item
+    %a.nav-link{ href: facility_indicators_path(@facility), class: ('active' if params[:type].blank?) }= t("shared.all")
+
+  %li.nav-item
+    %a.nav-link{ href: facility_indicators_path(@facility, type: 'standard_indicators'), class: ('active' if params[:type].present? && params[:type] == 'standard_indicators') }
+      = t("indicator.standard_indicator")
+
+  %li.nav-item
+    %a.nav-link{ href: facility_indicators_path(@facility, type: 'program_indicators'), class: ('active' if params[:type].present? && params[:type] == 'program_indicators') }
+      = t("indicator.program_indicator")
+
+  %li.nav-item
+    %a.nav-link{ href: facility_indicators_path(@facility, type: 'custom_indicators'), class: ('active' if params[:type].present? && params[:type] == 'custom_indicators') }
+      = t("indicator.custom_indicator")

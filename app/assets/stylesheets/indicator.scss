@@ -1,0 +1,33 @@
+.indicators-form {
+  .file-control-wrapper {
+    display: block;
+  }
+
+  .remove-audio-wrapper {
+    display: none;
+  }
+
+  .file-selected {
+    .file-control-wrapper {
+      display: none;
+    }
+
+    .remove-audio-wrapper {
+      display: block;
+    }
+  }
+
+  .file-control-wrapper {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+
+    input:focus {
+      outline: none;
+    }
+  }
+
+  .form-group-invalid .invalid-feedback {
+    display: block;
+  }
+}
