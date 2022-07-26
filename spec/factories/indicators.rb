@@ -14,10 +14,18 @@
 #
 FactoryBot.define do
   factory :indicator do
-    facility_id { "" }
-    name { "MyString" }
-    type { "" }
-    deleted_at { "MyString" }
-    endpoint { "MyString" }
+    name { FFaker::Name.name }
+    type { "Indicators::StandardIndicator" }
+    facility
+
+    trait :with_custom do
+      type { "Indicators::CustomIndicator" }
+      endpoint { "http://localhost" }
+    end
+
+    trait :with_program do
+      type { "Indicators::ProgramIndicator" }
+      endpoint { "http://localhost" }
+    end
   end
 end

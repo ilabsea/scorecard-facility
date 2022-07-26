@@ -13,7 +13,7 @@ module Samples
     end
 
     def self.get_audio(language, row)
-      column = "#{language.name_en} (#{language.code})" # Khmer (km)
+      column = row.keys.select { |k| k.match? "(#{language.code})" }.first
 
       if filename = row[column].presence
         audios.select { |file| file.split("/").last.split(".").first == "#{filename.split('.').first}" }.first

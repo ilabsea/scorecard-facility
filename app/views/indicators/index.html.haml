@@ -1,13 +1,20 @@
 .container-fluid.px-4
-  .d-flex
+  .d-flex.mb-2
     .flex-grow-1= render 'shared/header_title', title: "#{@facility.name}: #{t('indicator.indicators')}"
 
-    .d-flex.align-items-end
-      = render "shared/buttons/back_button", url: facilities_path
-      = render "shared/buttons/add_new_button", url: new_facility_indicator_path(@facility), name: t("indicator.indicator")
-
   = render "nav_tabs"
-  = render "filter"
+
+  .d-flex.align-items-center
+    = render "filter"
+    .flex-grow-1
+    = render "shared/buttons/back_button", url: facilities_path
+
+    - if params[:type].blank? || params[:type]=='standards'
+      = render "shared/buttons/add_new_button", url: new_facility_indicator_path(@facility), name: t("indicator.indicator")
+    - else
+      %div{ 'data-bs-toggle': 'tooltip', title: t('indicator.can_manage_standard_indicator_only') }
+        = render "shared/buttons/add_new_button", url: '#', name: t("indicator.indicator"), disabled: true
+
   = render "shared/no_data", items: @indicators
 
   - if @indicators.present?
@@ -37,10 +44,10 @@
               %td
                 .d-flex.justify-content-end
                   = render 'shared/buttons/edit_button', object: indicator, url: edit_facility_indicator_path(@facility, indicator)
-                  = render 'shared/buttons/delete_button', object: indicator, show_url: facility_indicator_path(@facility, indicator)
+                  = render 'shared/buttons/delete_button', object: indicator, message: { type: t('indicator.indicator'), name: indicator.name, url: facility_indicator_path(@facility, indicator) }
 
     - if @pagy.pages > 1
       .pagy-wrapper.justify-content-lg-end.justify-content-center
         != pagy_bootstrap_compact_nav(@pagy)
 
-  = turbo_frame_tag "remote_modal", target: "_top"
+= render "shared/modals/confirm_delete_modal"

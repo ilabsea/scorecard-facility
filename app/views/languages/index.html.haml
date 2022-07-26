@@ -29,10 +29,11 @@
                 %td= timeago(language.updated_at).html_safe
                 %td.d-flex.justify-content-end
                   = render 'shared/buttons/edit_button', object: language, url: edit_language_path(language)
-                  = render 'shared/buttons/delete_button', object: language, show_url: language_path(language)
+
+                  = render 'shared/buttons/delete_button', object: language, message: { type: t('language.language'), name: language.name, url: language_path(language) }
 
       - if @pagy.pages > 1
         .pagy-wrapper.justify-content-lg-end.justify-content-center
           != pagy_bootstrap_compact_nav(@pagy)
 
-  = turbo_frame_tag "remote_modal", target: "_top"
+= render "shared/modals/confirm_delete_modal"

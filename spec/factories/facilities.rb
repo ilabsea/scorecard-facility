@@ -19,10 +19,19 @@
 #
 FactoryBot.define do
   factory :facility do
-    id { "" }
-    code { "MyString" }
-    name_en { "MyString" }
-    name_km { "MyString" }
-    parent_id { 1 }
+    name_en        { FFaker::Name.name }
+    name_km        { name_en }
+    abbr_en        { name_en.upcase.split(" ").map { |n| n[0] }.join("") }
+    abbr_km        { name_km.split(" ").map { |n| n[0] }.join("") }
+
+    trait :with_indicators do
+      transient do
+        indicator_count { 1 }
+      end
+
+      after(:create) do |facility, evaluator|
+        create_list(:indicator, evaluator.indicator_count, facility:)
+      end
+    end
   end
 end

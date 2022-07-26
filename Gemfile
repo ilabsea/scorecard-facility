@@ -58,6 +58,8 @@ gem "simple_form", "~> 5.1.0"
 gem "devise", "~> 4.8.1"
 gem "paranoia", "~> 2.6.0"
 gem "carrierwave", "~> 2.2.2"
+gem "active_model_serializers", "~> 0.10.13"
+gem "roo", "~> 2.9.0"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -87,4 +89,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem "shoulda-matchers", "~> 5.1.0"
 end

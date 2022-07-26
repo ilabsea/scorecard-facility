@@ -25,6 +25,11 @@
           %i.fa-solid.fa-layer-group
         = t('sidebar.facilities')
 
+      = link_to api_keys_path, class: ['nav-link', css_active_class('api_keys')] do
+        .sb-nav-link-icon
+          %i.fa-solid.fa-key
+        = t('sidebar.api_keys')
+
       / %a.nav-link.collapsed{"aria-controls" => "collapseLayouts", "aria-expanded" => "false", "data-bs-target" => "#collapseLayouts", "data-bs-toggle" => "collapse", :href => "#"}
       /   .sb-nav-link-icon
       /     %i.fas.fa-columns

@@ -20,17 +20,19 @@ class Indicator < ApplicationRecord
   TYPES = %w(Indicators::StandardIndicator Indicators::ProgramIndicator Indicators::CustomIndicator)
 
   # Association
-  belongs_to :facility
-  has_many :language_indicators
+  belongs_to :facility, touch: true
+  has_many :language_indicators, dependent: :destroy
   has_many :languages, through: :language_indicators
 
   # Validation
   validates :name, presence: true
-  validates :name, uniqueness: { scope: [:facility_id] }, unless: -> { type == "Indicators::CustomIndicator" }
+  validates :name, uniqueness: { scope: [:facility_id, :type] }, if: -> { type == "Indicators::StandardIndicator" }
+
+  validates :endpoint, presence: true, if: -> { type != "Indicators::StandardIndicator" }
 
   # Callback
   before_create :secure_id
-  before_create :set_type
+  before_validation :set_type
 
   # Nested Attributes
   accepts_nested_attributes_for :language_indicators, allow_destroy: true, reject_if: lambda { |attributes|
@@ -41,30 +43,36 @@ class Indicator < ApplicationRecord
   }
 
   # Scope
-  scope :standard_indicators, -> { where(type: "Indicators::StandardIndicator") }
-  scope :program_indicators, -> { where(type: "Indicators::ProgramIndicator") }
-  scope :custom_indicators, -> { where(type: "Indicators::CustomIndicator") }
+  scope :standards, -> { where(type: "Indicators::StandardIndicator") }
+  scope :programs, -> { where(type: "Indicators::ProgramIndicator") }
+  scope :customs, -> { where(type: "Indicators::CustomIndicator") }
 
   # Class method
-  def self.inherited(child)
-    child.instance_eval do
-      def model_name
-        Indicator.model_name
+  class << self
+    def inherited(child)
+      child.instance_eval do
+        def model_name
+          Indicator.model_name
+        end
       end
+      super
     end
-    super
-  end
 
-  def self.types
-    TYPES
-  end
+    def types
+      TYPES
+    end
 
-  def self.filter(params)
-    scope = all
-    scope = scope.where("LOWER(name) LIKE ? OR LOWER(id) LIKE ?", "%#{params[:keyword].downcase}%", "%#{params[:keyword].downcase}%") if params[:keyword].present?
-    scope = scope.where(facility_id: params[:facility_id]) if params[:facility_id].present?
-    scope = scope.send(params[:type]) if params[:type].present? && %w(standard_indicators program_indicators custom_indicators).include?(params[:type])
-    scope
+    def filter(params)
+      scope = all
+      scope = scope.where("LOWER(name) LIKE ? OR LOWER(id) LIKE ?", "%#{params[:keyword].downcase}%", "%#{params[:keyword].downcase}%") if params[:keyword].present?
+      scope = scope.where(facility_id: params[:facility_id]) if params[:facility_id].present?
+      scope = scope.send(params[:type]) if params[:type].present? && scope_types.include?(params[:type])
+      scope
+    end
+
+    def scope_types
+      %w(standards programs customs)
+    end
   end
 
   private

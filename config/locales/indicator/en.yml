@@ -10,3 +10,7 @@ en:
     standard_indicator: Standard Indicator
     name_or_code: Name or code
     language_count: "# of languages"
+    standard_indicators: Standard Indicators
+    program_indicators: Program Indicators
+    custom_indicators: Custom Indicators
+    can_manage_standard_indicator_only: Officers can create only standard indicators!

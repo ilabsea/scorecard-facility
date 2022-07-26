@@ -3,6 +3,10 @@ class IndicatorPolicy < ApplicationPolicy
     true
   end
 
+  def show?
+    destroy?
+  end
+
   def create?
     true
   end
@@ -13,6 +17,10 @@ class IndicatorPolicy < ApplicationPolicy
 
   def destroy?
     create?
+  end
+
+  def upload?
+    %w(Indicators::ProgramIndicator Indicators::CustomIndicator).include? record.type
   end
 
   class Scope < Scope

@@ -1,4 +1,4 @@
-en:
+km:
   indicator:
     indicator: លក្ខណៈវិនិច្ឆ័យ
     indicators: លក្ខណៈវិនិច្ឆ័យ
@@ -10,3 +10,7 @@ en:
     standard_indicator: Standard Indicator
     name_or_code: ឈ្មោះ ឬ លេខកូដ
     language_count: ចំនួនភាសា
+    standard_indicators: លក្ខណៈវិនិច្ឆ័យស្តង់ដារ
+    program_indicators: លក្ខណៈវិនិច្ឆ័យកំណត់ដោយ Program
+    custom_indicators: លក្ខណៈវិនិច្ឆ័យ Custom
+    can_manage_standard_indicator_only: មន្រ្តីអាចបង្កើតលក្ខណៈវិនិច្ឆ័យស្តង់ដារប៉ុណ្ណោះ!

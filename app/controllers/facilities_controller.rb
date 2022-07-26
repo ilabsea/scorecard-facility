@@ -1,25 +1,17 @@
 class FacilitiesController < ApplicationController
-  before_action :set_facility, only: %i[ show edit update destroy ]
+  before_action :set_facility, only: %i[ edit update destroy ]
 
-  # GET /facilities or /facilities.json
   def index
-    @pagy, @facilities = pagy(authorize Facility.roots.reorder(sort_column + " " + sort_direction).includes(:children))
+    @pagy, @facilities = pagy(authorize Facility.roots.reorder(sort_column + " " + sort_direction).includes(:children, :indicators))
   end
 
-  # GET /facilities/1 or /facilities/1.json
-  def show
-  end
-
-  # GET /facilities/new
   def new
     @facility = authorize Facility.new
   end
 
-  # GET /facilities/1/edit
   def edit
   end
 
-  # POST /facilities or /facilities.json
   def create
     @facility = authorize Facility.new(facility_params)
 
@@ -34,7 +26,6 @@ class FacilitiesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /facilities/1 or /facilities/1.json
   def update
     respond_to do |format|
       if @facility.update(facility_params)
@@ -47,24 +38,20 @@ class FacilitiesController < ApplicationController
     end
   end
 
-  # DELETE /facilities/1 or /facilities/1.json
   def destroy
     @facility.destroy
 
     respond_to do |format|
       format.html { redirect_to facilities_url, status: :see_other, notice: "Facility was successfully destroyed." }
       format.json { head :no_content }
-      format.turbo_stream { redirect_to facilities_url, status: :see_other, notice: "Facility was successfully destroyed." }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_facility
       @facility = authorize Facility.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def facility_params
       params.require(:facility).permit(:id, :name_en, :name_km, :abbr_en, :abbr_km, :parent_id)
     end

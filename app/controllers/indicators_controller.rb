@@ -1,12 +1,9 @@
 class IndicatorsController < ApplicationController
-  before_action :set_indicator, only: %i[ show edit update destroy ]
+  before_action :set_indicator, only: %i[ edit update destroy ]
   before_action :set_facility
 
   def index
     @pagy, @indicators = pagy(Indicator.filter(filter_params).includes(:language_indicators))
-  end
-
-  def show
   end
 
   def new
@@ -43,7 +40,6 @@ class IndicatorsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to facility_indicators_url(@facility), notice: "Indicator was successfully destroyed." }
-      format.turbo_stream { redirect_to facility_indicators_url(@facility), status: :see_other, notice: "Facility was successfully destroyed." }
     end
   end
 

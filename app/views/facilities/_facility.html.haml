@@ -1,9 +1,10 @@
 .d-flex.facility
   .name{ class: ('sub-facility' unless facility.root?) }
     = "#{facility.name}"
-
+    = "(#{facility.indicators.length})" unless facility.root?
   .w-25
-    = facility.abbreviation
+    = "#{facility.abbr_en} (#{facility.abbr_km})"
+
   .flex-grow-1
     = timeago(facility.created_at).html_safe
 
@@ -11,10 +12,13 @@
     = link_to facility_indicators_path(facility), class: "btn btn-circle btn-sm btn-outline-info me-1", data: { 'bs-toggle': 'tooltip', 'bs-placement': 'top' }, title: t('facility.manage_indicator') do
       %i.fas.fa-pencil-ruler
 
-  = link_to edit_facility_path(facility), class: "btn btn-circle btn-sm btn-outline-warning me-1", data: { 'bs-toggle': 'tooltip', 'bs-placement': 'top' }, title: t('shared.edit') do
-    %i.fas.fa-pencil
+  / Edit button
+  = render 'shared/buttons/edit_button', object: facility, url: edit_facility_path(facility)
 
-  - title = facility.locked? ? t('facility.already_in_used') : t('shared.delete')
-  %span{ data: { 'bs-toggle': 'tooltip', 'bs-placement': 'top' }, title: title }
-    = link_to facility_path(facility), class: ["btn btn-circle btn-sm btn-outline-danger", ("disabled" unless policy(facility).destroy?)], data: { turbo_frame: "remote_modal" }  do
-      %i.fas.fa-trash-alt
+  / Delete button
+  - if facility.locked?
+    %span{ data: { 'bs-toggle': 'tooltip', 'bs-placement': 'top' }, title: t('facility.already_in_used') }
+      %button.btn.btn-circle.btn-sm.btn-outline-danger.disabled
+        %i.fas.fa-trash-alt
+  - else
+    = render 'shared/buttons/delete_button', object: facility, message: { type: t('facility.facility'), name: facility.name, url: facility_path(facility) }

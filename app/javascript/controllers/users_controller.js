@@ -15,7 +15,7 @@ export default class extends Controller {
     let self = this;
     let tooltipElement = event.target;
     let defaultTitle = tooltipElement.attributes['data-bs-original-title'].value
-    let tooltip = this.setTooltipTitle(tooltipElement, 'Copied');
+    let tooltip = this.setTooltipTitle(tooltipElement, tooltipElement.dataset.label);
 
     tooltip.show();
 
