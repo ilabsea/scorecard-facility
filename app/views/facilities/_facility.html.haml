@@ -7,6 +7,10 @@
   .flex-grow-1
     = timeago(facility.created_at).html_safe
 
+  - if !facility.root? && policy(Indicator).create?
+    = link_to facility_indicators_path(facility), class: "btn btn-circle btn-sm btn-outline-info me-1", data: { 'bs-toggle': 'tooltip', 'bs-placement': 'top' }, title: t('facility.manage_indicator') do
+      %i.fas.fa-pencil-ruler
+
   = link_to edit_facility_path(facility), class: "btn btn-circle btn-sm btn-outline-warning me-1", data: { 'bs-toggle': 'tooltip', 'bs-placement': 'top' }, title: t('shared.edit') do
     %i.fas.fa-pencil
 

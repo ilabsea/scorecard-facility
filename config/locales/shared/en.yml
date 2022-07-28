@@ -21,3 +21,5 @@ en:
     deactivate: Deactivate
     code: Code
     name: Name
+    pagination_title: "Displaying items <b>%{from}</b> - <b>%{to}</b> of <b>%{total}</b> in total"
+    all: All

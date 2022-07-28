@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   root "facilities#index"
 
   devise_for :users, path: "/", controllers: { confirmations: "confirmations" }
-  resources :facilities
+  resources :facilities do
+    resources :indicators
+  end
 
   # https://github.com/plataformatec/devise/wiki/How-To:-Override-confirmations-so-users-can-pick-their-own-passwords-as-part-of-confirmation-activation
   as :user do

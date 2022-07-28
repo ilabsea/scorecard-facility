@@ -1,0 +1,46 @@
+.container-fluid.px-4
+  .d-flex
+    .flex-grow-1= render 'shared/header_title', title: "#{@facility.name}: #{t('indicator.indicators')}"
+
+    .d-flex.align-items-end
+      = render "shared/buttons/back_button", url: facilities_path
+      = render "shared/buttons/add_new_button", url: new_facility_indicator_path(@facility), name: t("indicator.indicator")
+
+  = render "nav_tabs"
+  = render "filter"
+  = render "shared/no_data", items: @indicators
+
+  - if @indicators.present?
+    = render "shared/pagination_title", objects: @indicators
+
+    .table-responsive
+      %table.table.table-hover.pretty
+        %thead
+          %tr
+            %th #
+            %th= t('shared.code')
+            %th= t('shared.name')
+            %th= t('indicator.type')
+            %th= t('indicator.endpoint')
+            %th= t('indicator.language_count')
+            %th
+
+        %tbody
+          - @indicators.each_with_index do |indicator, index|
+            %tr
+              %td= @pagy.from + index
+              %td= indicator.id
+              %td= indicator.name
+              %td= indicator.type
+              %td= indicator.endpoint
+              %td= indicator.language_indicators.count
+              %td
+                .d-flex.justify-content-end
+                  = render 'shared/buttons/edit_button', object: indicator, url: edit_facility_indicator_path(@facility, indicator)
+                  = render 'shared/buttons/delete_button', object: indicator, show_url: facility_indicator_path(@facility, indicator)
+
+    - if @pagy.pages > 1
+      .pagy-wrapper.justify-content-lg-end.justify-content-center
+        != pagy_bootstrap_compact_nav(@pagy)
+
+  = turbo_frame_tag "remote_modal", target: "_top"
