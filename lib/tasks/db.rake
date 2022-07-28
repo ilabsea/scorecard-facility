@@ -11,5 +11,6 @@ namespace :db do
     sh "rake db:drop"
     sh "rake db:create"
     sh "rake db:migrate"
+    sh "rake sample:load"
   end
 end

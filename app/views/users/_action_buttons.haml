@@ -1,0 +1,42 @@
+- if user.deleted?
+  / Restore
+  = link_to restore_user_path(user), class: "btn btn-circle btn-sm btn-outline-warning me-1", data: { toggle: 'tooltip', placement: 'top', title: t('shared.restore'), turbo_method: :put } do
+    %i.fas.fa-trash-restore
+
+  / Really destroy
+  - if policy(user).destroy?
+    %span.me-1{ data: { toggle: 'tooltip', placement: 'top', title: t('shared.delete') }}
+      = link_to user_path(user), class: "btn btn-circle btn-sm btn-outline-danger", data: { turbo_frame: "remote_modal" } do
+        %i.fas.fa-trash-alt
+
+  - else
+    %button.disabled.btn.btn-circle.btn-sm.btn-outline-danger.me-1{data: {toggle: 'tooltip', placement: 'top', title: t('user.cannnot_be_deleted')}}
+      %i.fas.fa-trash-alt
+
+- else
+  - if policy(user).archive?
+    - unless user.confirmed?
+      / Resend confirmation
+      = link_to resend_confirmation_user_path(user), class: "btn btn-circle btn-sm btn-outline-success me-1", data: { toggle: 'tooltip', placement: 'top', title: t('user.resend_confirmation'), turbo_method: :post } do
+        %i.fas.fa-share-square
+
+      / Copy confirm link
+      %input.confirm-link{ value: confirmation_url(user, confirmation_token: user.confirmation_token) }
+
+      %button.me-1{ class: "btn btn-circle btn-sm btn-outline-secondary me-1 btn-copy", data: { action: "click->users#copyConfirmationLink", 'bs-toggle': 'tooltip', placement: 'top', title: t('user.copy_confirm_link') }}
+        %i.far.fa-copy
+
+    / Deactivate / Activate
+    - if policy(user).update? && user.confirmed?
+      - title = user.actived? ? t("shared.deactivate") : t("shared.activate")
+      = link_to user_path(user, user: {actived: !user.actived}), class: "btn btn-circle btn-sm btn-outline-info me-1", data: { toggle: 'tooltip', placement: 'top', title: title, turbo_method: :put } do
+        %i.fas{class: (user.actived? ? "fa-eye" : "fa-eye-slash")}
+
+    / Edit
+    - if policy(user).update?
+      = link_to edit_user_path(user), class: "btn btn-circle btn-sm btn-outline-warning me-1", data: { toggle: 'tooltip', placement: 'top', title: t('shared.edit')} do
+        %i.fas.fa-pen
+
+    / Archive
+    = link_to archive_user_path(user), class: "btn btn-circle btn-sm btn-outline-danger", data: {toggle: 'tooltip', placement: 'top', title: t('shared.archive'), turbo_method: :put} do
+      %i.fas.fa-user-times
