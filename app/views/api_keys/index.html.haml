@@ -1,0 +1,38 @@
+.container-fluid.px-4{'data-controller' => 'indicators'}
+  .d-flex
+    .flex-grow-1= render 'shared/header_title', title: t('api_key.api_keys')
+
+    .d-flex.align-items-end
+      = render "shared/buttons/add_new_button", url: new_api_key_path, name: t("api_key.api_key")
+
+  = render "filter"
+  = render "shared/no_data", items: @api_keys
+
+  - if @api_keys.present?
+    = render "shared/pagination_title", objects: @api_keys
+
+    .table-responsive
+      %table.table.table-hover.pretty
+        %thead
+          %tr
+            %th #
+            %th= t('shared.name')
+            %th= t('api_key.access_token')
+            %th
+
+        %tbody
+          - @api_keys.each_with_index do |api_key, index|
+            %tr
+              %td= @pagy.from + index
+              %td= api_key.name
+              %td= api_key.access_token
+              %td
+                .d-flex.justify-content-end
+                  = render 'shared/buttons/edit_button', object: api_key, url: edit_api_key_path(api_key)
+                  = render 'shared/buttons/delete_button', object: api_key,  message: { type: t('api_key.api_key'), name: api_key.name, url: api_key_path(api_key) }
+
+    - if @pagy.pages > 1
+      .pagy-wrapper.justify-content-lg-end.justify-content-center
+        != pagy_bootstrap_compact_nav(@pagy)
+
+= render "shared/modals/confirm_delete_modal"

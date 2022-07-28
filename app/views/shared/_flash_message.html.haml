@@ -1,13 +1,13 @@
 - if notice.present?
   .alert.alert-success.alert-dismissible.fade.show.notify-message.ml-2{:role => "alert"}
     = notice
-    %button.btn-close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+    %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "alert", :type => "button"}
 
 
 - if alert.present?
   .alert.alert-warning.alert-dismissible.fade.show.notify-message.ml-2{:role => "alert"}
     = alert
-    %button.btn-close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+    %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "alert", :type => "button"}
 
 :javascript
   setTimeout(function() {

@@ -5,10 +5,7 @@
 
   / Really destroy
   - if policy(user).destroy?
-    %span.me-1{ data: { 'bs-toggle': 'tooltip', 'bs-placement': 'top' }, title: t('shared.delete') }
-      = link_to user_path(user), class: "btn btn-circle btn-sm btn-outline-danger", data: { turbo_frame: "remote_modal" } do
-        %i.fas.fa-trash-alt
-
+    = render 'shared/buttons/delete_button', object: user, message: { type: t('user.user'), name: user.email, url: user_path(user) }
   - else
     %button.disabled.btn.btn-circle.btn-sm.btn-outline-danger.me-1{data: {'bs-toggle': 'tooltip', 'bs-placement': 'top', title: t('user.cannnot_be_deleted')}}
       %i.fas.fa-trash-alt
@@ -24,7 +21,7 @@
       %div{'data-controller': "users"}
         %input.confirm-link{ value: confirmation_url(user, confirmation_token: user.confirmation_token), 'data-users-target' => 'link', readonly: true }
 
-        %button.me-1{ class: "btn btn-circle btn-sm btn-outline-secondary me-1 btn-copy", data: { action: "click->users#copyConfirmationLink", 'bs-toggle': 'tooltip', 'bs-placement': 'top' }, title: t('user.copy_confirm_link')}
+        %button.me-1{ class: "btn btn-circle btn-sm btn-outline-secondary me-1 btn-copy", data: { action: "click->users#copyConfirmationLink", 'bs-toggle': 'tooltip', 'bs-placement': 'top', label: t('shared.copied') }, title: t('user.copy_confirm_link')}
           %i.far.fa-copy
 
     / Deactivate / Activate
@@ -34,9 +31,7 @@
         %i.fas{class: (user.actived? ? "fa-eye" : "fa-eye-slash")}
 
     / Edit
-    - if policy(user).update?
-      = link_to edit_user_path(user), class: "btn btn-circle btn-sm btn-outline-warning me-1", data: { 'bs-toggle': 'tooltip', 'bs-placement': 'top'}, title: t('shared.edit') do
-        %i.fas.fa-pen
+    = render 'shared/buttons/edit_button', object: user, url: edit_user_path(user)
 
     / Archive
     = link_to archive_user_path(user), class: "btn btn-circle btn-sm btn-outline-danger", data: {'bs-toggle': 'tooltip', 'bs-placement': 'top', turbo_method: :put}, title: t('shared.archive') do

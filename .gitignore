@@ -72,4 +72,4 @@ app.env
 
 .DS_Store
 
-lib/samples/assets/audios/
+/lib/samples/assets/audios/*

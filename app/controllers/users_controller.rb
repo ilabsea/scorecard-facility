@@ -2,15 +2,11 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[ edit update archive resend_confirmation]
 
   def index
-    @pagy, @users = pagy(policy_scope(authorize User.filter(params).order(sort_column + " " + sort_direction)))
+    @pagy, @users = pagy(policy_scope(authorize User.filter(filter_params).order(sort_column + " " + sort_direction)))
   end
 
   def new
     @user = authorize User.new
-  end
-
-  def show
-    @user = authorize User.with_deleted.find(params[:id])
   end
 
   def create
@@ -75,5 +71,9 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:email, :actived, :role)
+    end
+
+    def filter_params
+      params.permit(:email, :archived)
     end
 end

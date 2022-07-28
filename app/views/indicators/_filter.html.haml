@@ -1,6 +1,6 @@
 %form{ action: facility_indicators_path(@facility), method: 'get' }
-  .input-group.my-2{style: 'width: 300px'}
-    = text_field_tag(:keyword, params[:keyword], class: 'form-control search-input', placeholder: t('indicator.name_or_code'), id: 'search-name')
+  .input-group.my-2.search-input
+    = text_field_tag(:keyword, params[:keyword], class: 'form-control ', placeholder: t('indicator.name_or_code'))
     %span.input-group-text
       %i.fas.fa-search
 
