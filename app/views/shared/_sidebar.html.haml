@@ -11,13 +11,18 @@
 
       = link_to users_path, class: ['nav-link', css_active_class('users')] do
         .sb-nav-link-icon
-          %i.fas.fa-chart-area
+          %i.fa-solid.fa-users
         = t('sidebar.users')
+
+      = link_to languages_path, class: ['nav-link', css_active_class('languages')] do
+        .sb-nav-link-icon
+          %i.fa-solid.fa-language
+        = t('sidebar.languages')
 
 
       = link_to facilities_path, class: ['nav-link', css_active_class('facilities')] do
         .sb-nav-link-icon
-          %i.fas.fa-chart-area
+          %i.fa-solid.fa-layer-group
         = t('sidebar.facilities')
 
       / %a.nav-link.collapsed{"aria-controls" => "collapseLayouts", "aria-expanded" => "false", "data-bs-target" => "#collapseLayouts", "data-bs-toggle" => "collapse", :href => "#"}

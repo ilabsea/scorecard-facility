@@ -1,0 +1,8 @@
+= render "shared/modals/remote_modal", title: t('shared.confirm_delete', name: t('language.language')) do
+
+  %div
+    = t('shared.are_you_sure_to_delete', type: t('language.language'), name: @language.name).html_safe
+
+  .d-flex.justify-content-end.mt-3
+    = render "shared/buttons/modal_cancel_button"
+    = render "shared/buttons/modal_delete_button", item: @language
