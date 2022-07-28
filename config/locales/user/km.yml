@@ -16,3 +16,5 @@ km:
     restore_successfully: "អ្នកប្រើប្រាស់ %{email} ត្រូវបានស្តារដោយជោគជ័យ!"
     resend_confirmation: ផ្ញើតំណភ្ជាប់ម្តងទៀត
     resend_confirmation_successfully: ផ្ញើតំណភ្ជាប់ម្តងទៀតដោយជោគជ័យ!
+    locale_km: ខ្មែរ
+    locale_en: English
